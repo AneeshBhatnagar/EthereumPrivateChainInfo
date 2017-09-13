@@ -5,17 +5,24 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Active Peers on Blockchain</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
-	<form action="#" method="post" name="inputForm">
-		<input type="text" id="address" placeholder="Enter your Address from eth.coinbase">
-		<br/>
-		<input type="text" id="enode" placeholder="Enter your enode in the form enode://....@IP:port">
-		<br/>
-		<button type="button" id="formSubmit">Submit Data</button>
-	</form>
-
+	<h1 id="main-heading">Active Peers Listing</h1>
+	<div class="top-form">
+		<h3>Submit your details after connecting to the main node</h3>
+		<p>Address: Obtain it by typing eth.coinbase in your Ethereum instance (console or web)<br/>Enode: It is displayed to you after you start your geth instance. Please make sure you update your IP Address based on the guide you followed.</p>
+		<input type="text" id="address" placeholder="User Address">
+		<input type="text" id="enode" placeholder="Enode Value">
+		<button type="button" id="formSubmit">Submit</button>
+	</div>
+	<h2 id="table-heading">List of Currently Connected Peers</h2>
+	<div class="table-area">
+		<table id="active-peers">
+			
+		</table>
+	</div>
 </body>
 </html>

@@ -1,4 +1,12 @@
 $(document).ready(function(){
+
+	$.ajax({
+		url:'/api/getActivePeers',
+		type: 'GET'
+	}).done(function(data){
+		createTable(data)
+	});
+
 	$("#formSubmit").click(function(){
 		var add = $("#address").val();
 		var enode = $("#enode").val();
@@ -19,10 +27,19 @@ $(document).ready(function(){
 					url: 'http://localhost:8080/api/getActivePeers', 
 				    type: 'GET'
 				}).done(function(d){
-					console.log(d);
+					createTable(d);
 				});
 			}
 		});
 	})
 
 });
+
+
+function createTable(data){
+	opString = '<tr><th style="width:35%;">Address</th><th style="width:65%;">enode</th></tr>';
+	for(i=0; i<data.length; i++){
+		opString+='<tr><td style="word-wrap: break-word">'+data[i].address+'</td><td style="word-wrap: break-word">'+data[i].enode+'</td></tr>';
+	}
+	$("#active-peers").html(opString);
+}
