@@ -1,3 +1,9 @@
+/*
+	The script file to interact with the Node.js backend and interact with the user
+	Author: Aneesh Bhatnagar
+	URL: www.aneeshbhatnagar.com
+*/
+
 $(document).ready(function(){
 
 	$.ajax({
@@ -12,7 +18,10 @@ $(document).ready(function(){
 		var enode = $("#enode").val();
 		if(add.length == 0 || enode.length == 0){
 			alert("Please enter both Address and enode values");
+			return;
 		}
+		$("#enode").val("");
+		$("#address").val("");
 		$.ajax({
 		    url: '/api/newNode', 
 		    type: 'POST', 
