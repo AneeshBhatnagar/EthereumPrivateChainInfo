@@ -3,7 +3,7 @@
   "version"      : "1.0.0",
   "description"  : "Ethereum Web3 Server for Node Info",
   "main"         : "server.js",
-  "author"       : "Aneesh",
+  "author"       : "Aneesh Bhatnagar",
   "dependencies" : {
     "web3"		: "^0.16.0",
     "web3admin"	: "^0.4.4",
