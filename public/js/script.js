@@ -6,12 +6,7 @@
 
 $(document).ready(function(){
 
-	$.ajax({
-		url:'/api/getActivePeers',
-		type: 'GET'
-	}).done(function(data){
-		createTable(data)
-	});
+	updateList();
 
 	$("#formSubmit").click(function(){
 		var add = $("#address").val();
@@ -40,10 +35,10 @@ $(document).ready(function(){
 				});
 			}
 		});
-	})
+	});
+	setInterval(updateList,7000);
 
 });
-
 
 function createTable(data){
 	opString = '<tr><th style="width:35%;">Address</th><th style="width:65%;">enode</th></tr>';
@@ -51,4 +46,13 @@ function createTable(data){
 		opString+='<tr><td style="word-wrap: break-word">'+data[i].address+'</td><td style="word-wrap: break-word">'+data[i].enode+'</td></tr>';
 	}
 	$("#active-peers").html(opString);
+}
+
+function updateList(){
+	$.ajax({
+		url:'/api/getActivePeers',
+		type: 'GET'
+	}).done(function(data){
+		createTable(data)
+	});
 }

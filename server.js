@@ -6,6 +6,7 @@ const Web3 = require('web3');
 
 
 var web3 = new Web3();
+var sentPeers = []
 const web3Admin = require('web3admin');
 web3.setProvider(new Web3.providers.HttpProvider('http://localhost:8102'));
 
@@ -42,6 +43,7 @@ app.post('/api/newNode',function(req,res){
 	if(resp == 0)
 		res.json({"status":"error","errorDetails":"Invalid IP Address entered"});
 	data = {"id":resp,"enode":req.body.enode,"address":req.body.address};
+	transferEthers(data.address);
 	updateActivePeers(data);
 	res.json({"status":"complete"});
 });
@@ -62,6 +64,8 @@ app.get('*', function(req, res) {
 
 function getAllPeers(){
 	peers = web3.admin.peers;
+	console.log("Peers" + peers);
+	
 	if(peers.length == 0)
 		return -1;
 	else
@@ -88,6 +92,17 @@ function checkValidEnode(enode){
 	return address[0];
 }
 
+function transferEthers(receiver){
+	console.log(receiver)
+	if(sentPeers[receiver] == null)
+		transactionObject = {from:web3.eth.coinbase, to:receiver, value:500000}
+		web3.eth.sendTransaction(transactionObject, function(data){
+			sentPeers[receiver] = 1
+			console.log(data)
+		});
+	console.log(sentPeers)
+}
+
 function updateActivePeers(data){
 	data = data || null;
 	peers = getAllPeers();
@@ -106,6 +121,10 @@ function updateActivePeers(data){
 			activePeers.push(data)
 	}
 	//Updating current list
+	if(peers== -1){
+		activePeers = [];
+		return -1;
+	}
 	for(i=0; i<activePeers.length; i++){
 		if(peers.indexOf(activePeers[i].id) == -1){
 			activePeers.splice(i,1);
