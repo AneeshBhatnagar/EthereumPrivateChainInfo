@@ -96,11 +96,13 @@ function transferEthers(receiver){
 	console.log(receiver)
 	if(sentPeers[receiver] == null)
 		transactionObject = {from:web3.eth.coinbase, to:receiver, value:500000}
-		web3.eth.sendTransaction(transactionObject, function(data){
-			sentPeers[receiver] = 1
-			console.log(data)
-		});
-	console.log(sentPeers)
+		web3.personal.unlockAccount(web3.eth.coinbase, "PASSWORD HERE", function(){
+			web3.eth.sendTransaction(transactionObject, function(data){
+				sentPeers[receiver] = 1
+			});	
+		})
+		
+	//console.log(sentPeers)
 }
 
 function updateActivePeers(data){
