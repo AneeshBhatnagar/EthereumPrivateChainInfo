@@ -8,12 +8,13 @@ const Web3 = require('web3');
 var web3 = new Web3();
 var sentPeers = []
 const web3Admin = require('web3admin');
-web3.setProvider(new Web3.providers.HttpProvider('http://localhost:8102'));
+web3.setProvider(new Web3.providers.HttpProvider('http://localhost:8545'));
 
 var activePeers = [];
 
 setTimeout(function(){
     web3Admin.extend(web3);
+    console.log(web3.eth.coinbase);
 /*	console.log(getAllPeers())
     console.log(checkValidEnode("enode://89bebe3c427d47f783213ad98fa8a850411c74d83883372fa16dc31121e200c98bb8eda7973fa4332f25e4384532dd807c0d3e3a85d549ef8574592053dc1907@192.168.1.1:30301"));
     console.log(activePeers);
